@@ -9,7 +9,9 @@ package Testes;
 
 import Models.CarrinhoDeCompras;
 import Models.Produto;
+import Models.ItensDisponiveis;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -27,22 +29,26 @@ public class Menu {
             passarmos o scanner como um parâmetro ;) */
 
             if (opcao == 1) {
-                adicionarProduto(scanner);
+                exibirItensDisponiveis();
                 System.out.println("Digite ENTER para continuar");
                 scanner.nextLine();
             } else if (opcao == 2) {
-                removerProduto(scanner);
+                adicionarProduto(scanner);
                 System.out.println("Digite ENTER para continuar");
                 scanner.nextLine();
             } else if (opcao == 3) {
-                esvaziarCarrinho();
+                removerProduto(scanner);
                 System.out.println("Digite ENTER para continuar");
                 scanner.nextLine();
             } else if (opcao == 4) {
-                exibirCarrinho();
+                esvaziarCarrinho();
                 System.out.println("Digite ENTER para continuar");
                 scanner.nextLine();
             } else if (opcao == 5) {
+                exibirCarrinho();
+                System.out.println("Digite ENTER para continuar");
+                scanner.nextLine();
+            } else if (opcao == 6) {
                 System.out.println("Esperamos ter ajudado! Até a próxima!");
                 executar = false;
             } else {
@@ -54,29 +60,65 @@ public class Menu {
 
     private static void exibirMenu() {
         System.out.println("------ MENU -----");
-        System.out.println("1. Adicionar produto ao carrinho");
-        System.out.println("2. Remover produto do carrinho");
-        System.out.println("3. Esvaziar carrinho");
-        System.out.println("4. Exibir itens do carrinho");
-        System.out.println("5. Sair");
+        System.out.println("1. Ver itens disponíveis");
+        System.out.println("2. Adicionar produto ao carrinho");
+        System.out.println("3. Remover produto do carrinho");
+        System.out.println("4. Esvaziar carrinho");
+        System.out.println("5. Exibir itens do carrinho");
+        System.out.println("6. Sair");
         System.out.print("Digite o número da opção desejada: ");
     }
 
+    private static void exibirItensDisponiveis() {
+        ItensDisponiveis itensDisponiveis = new ItensDisponiveis();
+        ArrayList<Produto> produtosDisponiveis = itensDisponiveis.getProdutos();
+
+        System.out.println("Itens Disponíveis:");
+        int contador = 1;
+        for(Produto produto : produtosDisponiveis) {
+            System.out.println("PRODUTO NÚMERO " + contador);
+            System.out.println("Nome: " + produto.getNome());
+            System.out.println("Preço: " + produto.getPreco());
+            System.out.println("Categoria: " + produto.getCategoria());
+            System.out.println("Modelo: " + produto.getModelo());
+            System.out.println();
+            contador++;
+        };
+    }
+
     private static void adicionarProduto(Scanner scanner) {
-        System.out.print("Digite o nome do produto: ");
-        String nome = scanner.nextLine();
+        ItensDisponiveis itensDisponiveis = new ItensDisponiveis();
+        ArrayList<Produto> produtosDisponiveis = itensDisponiveis.getProdutos();
 
-        System.out.print("Digite o preço do produto: ");
-        double preco = scanner.nextDouble();
+        System.out.println("Produtos Disponíveis:");
+        exibirItensDisponiveis();
 
-        Produto produto = new Produto(nome, preco);
-        carrinho.adicionarProduto(produto);
+        System.out.print("Digite o número do produto que deseja adicionar ao carrinho: ");
+        int indice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (indice >= 1 && indice <= produtosDisponiveis.size()) {
+            Produto produtoEscolhido = produtosDisponiveis.get(indice - 1);
+            carrinho.adicionarProduto(produtoEscolhido);
+        } else {
+            System.out.println("Opção inválida.");
+        }
     }
 
     private static void removerProduto(Scanner scanner) {
-        System.out.print("Digite o nome do produto a ser removido: ");
-        String nome = scanner.nextLine();
-        carrinho.removerProduto(nome);
+        exibirCarrinho();
+        System.out.print("Digite o número do produto que deseja remover do carrinho: ");
+        int indice = scanner.nextInt();
+        scanner.nextLine();
+
+        ArrayList<Produto> itensNoCarrinho = (ArrayList<Produto>) carrinho.getProdutos();
+
+        if (indice >= 1 && indice <= itensNoCarrinho.size()) {
+            Produto produtoRemovido = itensNoCarrinho.remove(indice - 1);
+            carrinho.removerProduto(produtoRemovido);
+        } else {
+            System.out.println("Opção inválida.");
+        }
     }
 
     private static void esvaziarCarrinho() {
@@ -91,7 +133,7 @@ public class Menu {
     private static void exibirDetalhesProduto(Produto produto) {
         System.out.println("Detalhes do Produto:");
         System.out.println("Nome: " + produto.getNome());
-        System.out.println("Preço: " + produto.getPreco());
+        System.out.println("Preço: R$" + produto.getPreco());
         System.out.println("Modelo: " + produto.getModelo());
         System.out.println("Marca: " + produto.getMarca());
         System.out.println("Descrição: " + produto.getDescricao());

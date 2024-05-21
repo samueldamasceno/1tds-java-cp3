@@ -18,20 +18,23 @@ public class CarrinhoDeCompras {
         this.produtos = new ArrayList<>();
     }
 
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
     public void adicionarProduto(Produto produto) {
         produtos.add(produto);
         System.out.println(produto.getNome() + " adicionado ao carrinho");
     }
 
-    public void removerProduto(String nome) {
+    public void removerProduto(Produto produtoRemovido) {
         for (Produto produto : produtos) {
-            if (produto.getNome().equals(nome)) {
+            if (produto.equals(produtoRemovido)) {
                 produtos.remove(produto);
                 System.out.println("Produto removido do carrinho!");
                 return;
             }
         }
-        System.out.println("Esse produto não está no carrinho.");
     }
 
     public double calcularTotalCompra() {

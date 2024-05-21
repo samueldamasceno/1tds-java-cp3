@@ -14,9 +14,9 @@ public class Produto {
     protected double preco;
     private CategoriaProduto categoria;
     private String modelo;
-    private String marca;
+    private Marca marca;
     private String descricao;
-    private String detalhesTecnicos;
+    private DetalhesTecnicos detalhesTecnicos;
     private String informacoesAdicionais;
 
     public Produto(String nome, double preco) {
@@ -24,9 +24,17 @@ public class Produto {
         this.preco = preco;
     }
 
-    public Produto(String nome, double preco, String modelo, String marca, String descricao, String detalhesTecnicos, String informacoesAdicionais) {
+    public Produto(String nome, double preco, CategoriaProduto categoria, String modelo) {
         this.nome = nome;
         this.preco = preco;
+        this.categoria = categoria;
+        this.modelo = modelo;
+    }
+
+    public Produto(String nome, double preco, CategoriaProduto categoria, String modelo, Marca marca, String descricao, DetalhesTecnicos detalhesTecnicos, String informacoesAdicionais) {
+        this.nome = nome;
+        this.preco = preco;
+        this.categoria = categoria;
         this.modelo = modelo;
         this.marca = marca;
         this.descricao = descricao;
@@ -69,11 +77,11 @@ public class Produto {
         this.modelo = modelo;
     }
 
-    public String getMarca() {
+    public Marca getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public void setMarca(Marca marca) {
         this.marca = marca;
     }
 
@@ -85,11 +93,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public String getDetalhesTecnicos() {
+    public DetalhesTecnicos getDetalhesTecnicos() {
         return detalhesTecnicos;
     }
 
-    public void setDetalhesTecnicos(String detalhesTecnicos) {
+    public void setDetalhesTecnicos(DetalhesTecnicos detalhesTecnicos) {
         this.detalhesTecnicos = detalhesTecnicos;
     }
 
