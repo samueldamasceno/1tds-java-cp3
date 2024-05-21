@@ -1,3 +1,10 @@
+/*  Nome: Felipe Menezes Prometti – RM: 555174
+    Nome: Murillo Ari Sant'Anna – RM: 557183
+    Nome: Samuel Damasceno - RM: 558876
+    Nome: Vitor Isac Belicci - RM: 554686
+    Tema sorteado: Ferramentas e construção
+*/
+
 package Models;
 
 import Models.Enums.CategoriaProduto;
